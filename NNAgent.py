@@ -19,6 +19,7 @@ class NNAgent(Agent):
         self._train_epochs = train_epochs
         self._learning_rate = learning_rate
         self._discount = discount
+        self._actions_in_iter = actions_in_iter
         self._exploration_rate = exploration_rate
         self._iterations = iterations
         self._exploration_delta = 1/self._iterations/actions_in_iter
@@ -76,6 +77,11 @@ class NNAgent(Agent):
         self._prev_state = np.zeros(self._states_num)
         self._prev_action = -1
         self._prev_reward = 0
+
+    def set_exploration(self, exploration_rate, iterations):
+        self._exploration_rate = exploration_rate
+        self._iterations = iterations
+        self._exploration_delta = 1/self._iterations/self._actions_in_iter
 
     def choose_action(self, state, prev_reward, done, train=True):
         if self._prev_action != -1 and train:

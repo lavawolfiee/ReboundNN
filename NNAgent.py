@@ -47,6 +47,9 @@ class NNAgent:
             model.load_weights(weights)
         return model
 
+    def save(self, file):
+        self._model.save_weights(file)
+
     def predict_one(self, state):
         return self._model.predict(state.reshape(1, self._states_num))[0]
 

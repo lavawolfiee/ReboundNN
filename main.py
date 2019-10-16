@@ -20,7 +20,8 @@ def play(env, agent1, agent2, iterations=None, output=False, train=True, render=
         j = 0
         done_counter = 2
         if performance_test:
-            print('Iter ' + str(i))
+            pass
+            # print('Iter ' + str(i))
 
         while done_counter > 0:
             if done:
@@ -100,6 +101,8 @@ agent1.set_exploration(1, iterations)
 agent2.set_exploration(1, iterations)'''
 
 print(play(env, agent1, agent2, iterations=iterations))
+agent1.save("weights1.hdf5")
+agent2.save("weights2.hdf5")
 
-human_agent = HumanAgent(width * height * pieces_num, env)
-play(env, agent1, human_agent, performance_test=False)
+'''human_agent = HumanAgent(width * height * pieces_num, env)
+play(env, agent1, human_agent, performance_test=False)'''

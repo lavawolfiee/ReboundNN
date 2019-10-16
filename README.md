@@ -1,2 +1,2 @@
 # ReboundNN
-Neural network with Q-learning for game "Reobound"
+Neural network with Q-learning for game "Rebound"

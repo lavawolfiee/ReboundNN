@@ -5,10 +5,9 @@ from keras.optimizers import Adam
 from keras.models import Sequential
 from keras.layers.core import Dense, Dropout
 import math
-from Agent import *
 
 
-class NNAgent(Agent):
+class NNAgent:
     def __init__(self, states_num, actions_num, env, turn, memory_size=50000, batch_size=1000, train_epochs=1,
                  learning_rate=0.1, discount=0.95, exploration_rate=1, iterations=100000, actions_in_iter=32):
         self._memory = []

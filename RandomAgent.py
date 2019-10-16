@@ -1,9 +1,8 @@
-from Agent import *
 import random
 import numpy as np
 
 
-class RandomAgent(Agent):
+class RandomAgent:
     def __init__(self, actions_num, env, turn):
         self._actions_num = actions_num
         self._env = env

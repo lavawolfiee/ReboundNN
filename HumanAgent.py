@@ -1,7 +1,4 @@
-from Agent import *
-
-
-class HumanAgent(Agent):
+class HumanAgent:
     def __init__(self, actions_num, env):
         self._actions_num = actions_num
         self._env = env

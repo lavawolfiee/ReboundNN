@@ -1,8 +1,7 @@
-from Environment import *
 import numpy as np
 
 
-class ReboundEnv(Environment):
+class ReboundEnv:
     def __init__(self, width, height, pieces_count=2, reset=False):
         if not reset:
             self.KILL_REWARD = 1

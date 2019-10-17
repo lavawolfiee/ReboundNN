@@ -13,8 +13,8 @@ class ReboundEnv:
         self._height = height
         self._field = np.zeros((self._height, self._width))
         if not reset:
-            self.pieces_num = 2 # number of different piece's colors
-            self.pieces_count = pieces_count # count of pieces of one color
+            self.pieces_num = 2  # number of different piece's colors
+            self.pieces_count = pieces_count  # count of pieces of one color
             self.states_num = self._width * + self._height
             self.actions_num = self.states_num * self.pieces_num
 

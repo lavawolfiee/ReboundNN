@@ -9,7 +9,8 @@ import math
 
 class NNAgent:
     def __init__(self, states_num, actions_num, env, turn, memory_size=50000, batch_size=1000, train_epochs=1,
-                 learning_rate=0.1, discount=0.95, exploration_rate=1, iterations=100000, actions_in_iter=32):
+                 learning_rate=0.1, discount=0.95, exploration_rate=1, iterations=100000, actions_in_iter=32,
+                 activation='linear', activation_out='linear'):
         self._memory = []
         self._memory_size = memory_size
         self._states_num = states_num
@@ -22,6 +23,8 @@ class NNAgent:
         self._exploration_rate = exploration_rate
         self._iterations = iterations
         self._exploration_delta = 1/self._iterations/actions_in_iter
+        self._activation = activation
+        self._activation_out = activation_out
         self._model = self._define_model()
         self._prev_state = np.zeros(self._states_num)
         self._prev_action = -1
@@ -31,15 +34,13 @@ class NNAgent:
 
     def _define_model(self, weights=None):
         model = Sequential()
-        model.add(Dense(360, activation='linear', input_dim=self._states_num))
+        model.add(Dense(360, activation=self._activation, input_dim=self._states_num))
         model.add(Dropout(0.15))
-        model.add(Dense(360, activation='linear'))
+        model.add(Dense(360, activation=self._activation))
         model.add(Dropout(0.15))
-        model.add(Dense(360, activation='linear'))
+        model.add(Dense(360, activation=self._activation))
         model.add(Dropout(0.15))
-        model.add(Dense(360, activation='linear'))
-        model.add(Dropout(0.15))
-        model.add(Dense(self._actions_num, activation='linear'))
+        model.add(Dense(self._actions_num, activation=self._activation_out))
         opt = Adam(self._learning_rate)
         model.compile(loss='mse', optimizer=opt)
 

@@ -75,21 +75,28 @@ def test_performance(env, agent, turn):
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--iterations', type=int, default=500, help='Iterations count')
+parser.add_argument('--iterations', type=int, default=100, help='Iterations count')
 parser.add_argument('--learning_rate', type=float, default=0.1, help='How quickly the algorithm tries to learn')
+parser.add_argument('--width', type=int, default=6, help='Width of the field')
+parser.add_argument('--height', type=int, default=6, help='Height of the field')
+parser.add_argument('--pieces_count', type=int, default=8, help='Count of pieces of one color')
+parser.add_argument('--activation', type=str, default='linear', help='Activation function')
+parser.add_argument('--activation_out', type=str, default='linear', help='Out activation function')
 FLAGS, unparsed = parser.parse_known_args()
 
-width = 3
-height = 3
-pieces_count = 2
+width = FLAGS.width
+height = FLAGS.height
+pieces_count = FLAGS.pieces_count
 pieces_num = 2
 iterations = FLAGS.iterations
 
 env = ReboundEnv(width, height, pieces_count=pieces_count)
-agent1 = NNAgent(width * height, width * height * pieces_num, env, 1,
-                 iterations=iterations, actions_in_iter=pieces_count * 2, learning_rate=FLAGS.learning_rate)
-agent2 = NNAgent(width * height, width * height * pieces_num, env, -1,
-                 iterations=iterations, actions_in_iter=pieces_count * 2, learning_rate=FLAGS.learning_rate)
+agent1 = NNAgent(width * height, width * height * pieces_num, env, 1, iterations=iterations,
+                 actions_in_iter=pieces_count * 2, learning_rate=FLAGS.learning_rate, activation=FLAGS.activation,
+                 activation_out=FLAGS.activation_out)
+agent2 = NNAgent(width * height, width * height * pieces_num, env, -1, iterations=iterations,
+                 actions_in_iter=pieces_count * 2, learning_rate=FLAGS.learning_rate, activation=FLAGS.activation,
+                 activation_out=FLAGS.activation_out)
 
 '''random_agent = RandomAgent(width * height * pieces_num, env, -1)
 print(play(env, agent1, random_agent, iterations=iterations))
@@ -104,5 +111,5 @@ print(play(env, agent1, agent2, iterations=iterations))
 agent1.save("weights1.hdf5")
 agent2.save("weights2.hdf5")
 
-'''human_agent = HumanAgent(width * height * pieces_num, env)
-play(env, agent1, human_agent, performance_test=False)'''
+human_agent = HumanAgent(width * height * pieces_num, env)
+play(env, human_agent, agent2, performance_test=False)

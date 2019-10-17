@@ -130,3 +130,5 @@ binarium.session-journal
 *.iml
 log.txt
 .settings
+
+*.hdf5
